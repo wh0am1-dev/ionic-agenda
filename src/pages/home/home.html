@@ -3,7 +3,7 @@
     <ion-title>Contacts</ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only (click)="addContact()">
+      <button ion-button icon-only (click)="editor()">
         <ion-icon name="person-add" color="grn"></ion-icon>
       </button>
     </ion-buttons>
@@ -11,36 +11,47 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher-content pullingText="Pull to refresh" refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+
   <ion-searchbar (ionInput)="filter($event)" placeholder="Search contacts"></ion-searchbar>
+
   <ion-list>
     <ion-item-group *ngFor="let ini of initials()">
       <ion-item-divider color="light" *ngIf="contacts[ini].length">{{ini | uppercase}}</ion-item-divider>
+
       <ion-item-sliding *ngFor="let contact of contacts[ini]">
+
         <ion-item>
           <ion-icon item-start name="person"></ion-icon>
           <h2>{{contact.name}} {{contact.surname}}</h2>
         </ion-item>
+
         <ion-item-options side="left">
-          <button ion-button color="ylw">
+          <button ion-button color="ylw" (click)="editor(contact)">
             <ion-icon name="create"></ion-icon>
             Edit
           </button>
-          <button ion-button color="red">
+          <button ion-button color="red" (click)="delete(contact)">
             <ion-icon name="trash"></ion-icon>
             Delete
           </button>
         </ion-item-options>
         <ion-item-options side="right">
-          <button ion-button color="blu">
+          <button ion-button color="blu" (click)="mail(contact)">
             <ion-icon name="mail"></ion-icon>
             Email
           </button>
-          <button ion-button color="grn">
+          <button ion-button color="grn" (click)="call(contact)">
             <ion-icon name="call"></ion-icon>
             Call
           </button>
         </ion-item-options>
+
       </ion-item-sliding>
     </ion-item-group>
   </ion-list>
+
 </ion-content>
