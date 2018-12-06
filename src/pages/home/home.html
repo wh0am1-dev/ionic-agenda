@@ -10,11 +10,37 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<ion-content>
+  <ion-searchbar (ionInput)="filter($event)" placeholder="Search contacts"></ion-searchbar>
+  <ion-list>
+    <ion-item-group *ngFor="let ini of initials()">
+      <ion-item-divider color="light" *ngIf="contacts[ini].length">{{ini | uppercase}}</ion-item-divider>
+      <ion-item-sliding *ngFor="let contact of contacts[ini]">
+        <ion-item>
+          <ion-icon item-start name="person"></ion-icon>
+          <h2>{{contact.name}} {{contact.surname}}</h2>
+        </ion-item>
+        <ion-item-options side="left">
+          <button ion-button color="ylw">
+            <ion-icon name="create"></ion-icon>
+            Edit
+          </button>
+          <button ion-button color="red">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+        <ion-item-options side="right">
+          <button ion-button color="blu">
+            <ion-icon name="mail"></ion-icon>
+            Email
+          </button>
+          <button ion-button color="grn">
+            <ion-icon name="call"></ion-icon>
+            Call
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+  </ion-list>
 </ion-content>
