@@ -4,6 +4,7 @@ import { AboutPage } from '../about/about';
 import { HomePage } from '../home/home';
 
 @Component({
+  selector: 'agenda-tabs',
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
