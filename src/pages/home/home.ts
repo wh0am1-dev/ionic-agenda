@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController, Refresher, Searchbar } from 'ionic-angular';
+import { NavController, AlertController, Refresher, Searchbar, Events } from 'ionic-angular';
 
 import { Contact, ContactsProvider } from '../../providers/contacts/contacts';
 
@@ -18,14 +18,15 @@ export class HomePage {
     public navCtrl: NavController,
     public contactsProv: ContactsProvider,
     public alertCtrl: AlertController,
-  ) {}
+    public events: Events,
+  ) {
+    this.events.subscribe('contacts:saved', () => {
+      this.refresh();
+    });
+  }
 
   ionViewWillEnter() {
     this.refresh();
-  }
-
-  delete(contact: Contact) {
-    this.contactsProv.removeContact(contact);
   }
 
   call(contact: Contact) {
@@ -38,56 +39,26 @@ export class HomePage {
 
   initials(): string[] {
     let ini = [];
-
     for (let k in this.contacts)
       ini.push(k);
 
     return ini;
   }
 
-  filter(ev?: any) {
-    console.log('lakjsdflkjaslkdfj');
-    let query = ev ? ev.target.value : null;
-
-    let contacts = {};
-    for (let k in this.allContacts)
-      contacts[k] = this.allContacts[k].slice();
-
-    if (query && query.trim() !== '') {
-      let keywords = query.split(/(?:,| )+/);
-
-      for (let ini in contacts) {
-        contacts[ini] = contacts[ini].filter(contact => {
-          let stays = false;
-
-          keywords.forEach(k => {
-            stays = stays || contact.name.toLowerCase().indexOf(k.toLowerCase()) > -1;
-            stays = stays || contact.surname.toLowerCase().indexOf(k.toLowerCase()) > -1;
-            stays = stays || contact.phone.toLowerCase().indexOf(k.toLowerCase()) > -1;
-            stays = stays || contact.email.toLowerCase().indexOf(k.toLowerCase()) > -1;
-          });
-
-          return stays;
-        });
-      }
-    }
-
-    this.contacts = contacts;
-  }
-
   refresh(refresher?: Refresher) {
     this.searchbar.setValue('');
-    this.allContacts = this.contactsProv.getContacts();
-    console.log(this.allContacts);
+    this.contactsProv.getContacts().then(contacts => {
+      this.allContacts = contacts;
 
-    this.contacts = {};
-    for (let k in this.allContacts)
-      this.contacts[k] = this.allContacts[k].slice();
+      this.contacts = {};
+      for (let k in this.allContacts)
+        this.contacts[k] = this.allContacts[k].slice();
 
-    if (refresher)
-      setTimeout(() => {
-        refresher.complete();
-      }, 100);
+      if (refresher)
+        setTimeout(() => {
+          refresher.complete();
+        }, 250);
+    });
   }
 
   editor(contact?: Contact) {
@@ -123,14 +94,47 @@ export class HomePage {
         text: 'Done',
         handler: data => {
           if (contact)
-            this.contactsProv.editContact(contact, new Contact(data.name, data.surname, data.phone, data.email));
+            this.contactsProv.editContact(contact, new Contact(data.name, data.surname, data.phone, data.email), this.refresh);
           else
-            this.contactsProv.addContact(new Contact(data.name, data.surname, data.phone, data.email));
+            this.contactsProv.addContact(new Contact(data.name, data.surname, data.phone, data.email), this.refresh);
         },
       }],
     });
 
     alert.present();
+  }
+
+  delete(contact: Contact) {
+    this.contactsProv.removeContact(contact, this.refresh);
+  }
+
+  filter(ev?: any) {
+    let query = ev ? ev.target.value : null;
+
+    let contacts = {};
+    for (let k in this.allContacts)
+      contacts[k] = this.allContacts[k].slice();
+
+    if (query && query.trim() !== '') {
+      let keywords = query.split(/(?:,| )+/);
+
+      for (let ini in contacts) {
+        contacts[ini] = contacts[ini].filter(contact => {
+          let stays = false;
+
+          keywords.forEach(k => {
+            stays = stays || contact.name.toLowerCase().indexOf(k.toLowerCase()) > -1;
+            stays = stays || contact.surname.toLowerCase().indexOf(k.toLowerCase()) > -1;
+            stays = stays || contact.phone.toLowerCase().indexOf(k.toLowerCase()) > -1;
+            stays = stays || contact.email.toLowerCase().indexOf(k.toLowerCase()) > -1;
+          });
+
+          return stays;
+        });
+      }
+    }
+
+    this.contacts = contacts;
   }
 
 }

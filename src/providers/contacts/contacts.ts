@@ -1,62 +1,51 @@
 import { Injectable } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class ContactsProvider {
 
   public static readonly DB_CONTACTS = 'contacts';
-  private contacts: object = {
-    a: [], b: [], c: [], d: [], e: [], f: [], g: [], h: [], i: [],
-    j: [], k: [], l: [], m: [], n: [], o: [], p: [], q: [], r: [],
-    s: [], t: [], u: [], v: [], w: [], x: [], y: [], z: [], _: [],
-  };
 
-  constructor(public storage: Storage) {
-    this.storage.get(ContactsProvider.DB_CONTACTS).then(contacts => {
-      if (contacts) this.contacts = contacts;
-    });
-  }
+  constructor(
+    public storage: Storage,
+    public events: Events,
+  ) {}
 
-  getContacts() {
-    let tmp = {};
-    for (let k in this.contacts)
-      tmp[k] = this.contacts[k];
-
-    return tmp;
+  getContacts(): Promise<object> {
+    return this.storage.get(ContactsProvider.DB_CONTACTS);
   }
 
   addContact(contact: Contact) {
-    if (!this.contacts[contact.ini]) this.contacts[contact.ini] = [];
-
-    this.contacts[contact.ini].push(contact);
-    this.saveContacts();
+    this.getContacts().then(contacts => {
+      contacts[contact.ini].push(contact);
+      this.saveContacts(contacts);
+    });
   }
 
   editContact(oldContact: Contact, newContact: Contact) {
-    this.removeContact(oldContact);
-    this.addContact(newContact);
+    this.getContacts().then(contacts => {
+      let idx = this.findContact(contacts, oldContact);
+      contacts[oldContact.ini].splice(idx, 1);
+      contacts[newContact.ini].push(newContact);
+      this.saveContacts(contacts);
+    });
   }
 
   removeContact(contact: Contact) {
-    let idx = this.findContact(contact);
-
-    if (idx !== null) {
-      this.contacts[contact.ini].splice(idx, 1);
-      this.saveContacts();
-    }
+    this.getContacts().then(contacts => {
+      let idx = this.findContact(contacts, contact);
+      contacts[contact.ini].splice(idx, 1);
+      this.saveContacts(contacts);
+    });
   }
 
-  private saveContacts() {
-    this.sortContacts();
-    this.storage.set(ContactsProvider.DB_CONTACTS, this.contacts);
-  }
-
-  private findContact(contact: Contact): number {
-    if (!this.contacts[contact.ini])
+  private findContact(contacts: object, contact: Contact): number {
+    if (!contacts[contact.ini])
       return null;
 
-    for (var i = 0; i < this.contacts[contact.ini].length; i++) {
-      let c = this.contacts[contact.ini][i];
+    for (var i = 0; i < contacts[contact.ini].length; i++) {
+      let c = contacts[contact.ini][i];
 
       if (contact.name.toLowerCase() === c.name.toLowerCase() &&
         contact.surname.toLowerCase() === c.surname.toLowerCase())
@@ -66,24 +55,29 @@ export class ContactsProvider {
     return null;
   }
 
-  private sortContacts() {
-    for (let k in this.contacts) {
-      this.contacts[k].sort((a, b) => {
-        let aName = a.name.toLowerCase();
-        let bName = b.name.toLowerCase();
-        let aSurname = a.surname.toLowerCase();
-        let bSurname = b.surname.toLowerCase();
+  private saveContacts(contacts, callback?) {
+    for (let k in contacts)
+      contacts[k].sort(this.sortContacts);
 
-        if (aName === bName) {
-          if (aSurname < bSurname) return -1;
-          if (aSurname > bSurname) return 1;
-          return 0;
-        }
+    this.storage.set(ContactsProvider.DB_CONTACTS, contacts).then(() => {
+      this.events.publish('contacts:saved');
+    });
+  }
 
-        if (aName < bName) return -1;
-        return 1;
-      });
+  private sortContacts(a, b) {
+    let aName = a.name.toLowerCase();
+    let bName = b.name.toLowerCase();
+    let aSurname = a.surname.toLowerCase();
+    let bSurname = b.surname.toLowerCase();
+
+    if (aName === bName) {
+      if (aSurname < bSurname) return -1;
+      if (aSurname > bSurname) return 1;
+      return 0;
     }
+
+    if (aName < bName) return -1;
+    return 1;
   }
 }
 
