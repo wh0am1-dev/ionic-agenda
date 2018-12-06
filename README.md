@@ -1,3 +1,3 @@
 # ionic-agenda
 
-contact application made with :heart: and ionic
+contact management application made with :heart: and ionic
