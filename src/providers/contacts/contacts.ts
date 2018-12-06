@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 export class ContactsProvider {
 
   private readonly DB_CONTACTS = 'contacts';
-  private contacts: Array<Contact> = [];
+  private contacts: object = {};
 
   constructor(public storage: Storage) {
     storage.get(this.DB_CONTACTS).then(contacts => {
@@ -14,24 +14,26 @@ export class ContactsProvider {
     });
   }
 
-  getContacts(): Array<Contact> {
+  getContacts(): object {
     return this.contacts;
   }
 
   addContact(contact: Contact) {
-    let idx = this.findContact(contact);
+    let ini = contact.name.charAt(0).toLowerCase();
+    let idx = this.findContact(ini, contact);
 
-    if (idx !== null) this.contacts[idx] = contact;
-    else this.contacts.push(contact);
+    if (idx !== null) this.contacts[ini][idx] = contact;
+    else this.contacts[ini].push(contact);
 
     this.saveContacts();
   }
 
   removeContact(contact: Contact) {
-    let idx = this.findContact(contact);
+    let ini = contact.name.charAt(0).toLowerCase();
+    let idx = this.findContact(ini, contact);
 
     if (idx !== null) {
-      this.contacts.splice(idx, 1);
+      this.contacts[ini].splice(idx, 1);
       this.saveContacts();
     }
   }
@@ -41,11 +43,12 @@ export class ContactsProvider {
     this.storage.set(this.DB_CONTACTS, this.contacts);
   }
 
-  private findContact(contact: Contact): number {
-    for (var i = 0; i < this.contacts.length; i++) {
-      let c = this.contacts[i];
+  private findContact(ini: string, contact: Contact): number {
+    for (var i = 0; i < this.contacts[ini].length; i++) {
+      let c = this.contacts[ini][i];
 
-      if (contact.name === c.name && contact.surname === c.surname)
+      if (contact.name.toLowerCase() === c.name.toLowerCase() &&
+        contact.surname.toLowerCase() === c.surname.toLowerCase())
         return i;
     }
 
@@ -53,23 +56,24 @@ export class ContactsProvider {
   }
 
   private sortContacts() {
-    this.contacts.sort((a, b) => {
-      let aName = a.name.toLowerCase();
-      let bName = b.name.toLowerCase();
-      let aSurname = a.surname.toLowerCase();
-      let bSurname = b.surname.toLowerCase();
+    for (let k in this.contacts) {
+      this.contacts[k].sort((a, b) => {
+        let aName = a.name.toLowerCase();
+        let bName = b.name.toLowerCase();
+        let aSurname = a.surname.toLowerCase();
+        let bSurname = b.surname.toLowerCase();
 
-      if (aName === bName) {
-        if (aSurname < bSurname) return -1;
-        if (aSurname > bSurname) return 1;
-        return 0;
-      }
+        if (aName === bName) {
+          if (aSurname < bSurname) return -1;
+          if (aSurname > bSurname) return 1;
+          return 0;
+        }
 
-      if (aName < bName) return -1;
-      return 1;
-    });
+        if (aName < bName) return -1;
+        return 1;
+      });
+    }
   }
-
 }
 
 class Contact {
