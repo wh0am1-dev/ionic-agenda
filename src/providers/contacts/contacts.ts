@@ -112,18 +112,32 @@ export class Contact {
   phone: string;
   email: string;
   ini: string;
+  color: string;
 
   constructor(name: string, surname: string, phone: string, email: string) {
     this.name = name;
     this.surname = surname;
     this.phone = phone;
     this.email = email;
+    this.color = this.rndColor();
 
     let tmp = this.name.charAt(0).toLowerCase();
     if (Contact.ABC.indexOf(tmp) > -1)
       this.ini = tmp;
     else
       this.ini = '_';
+
+  }
+
+  rndColor(): string {
+    let colors = [
+      '#eb4e32',
+      '#ffd954',
+      '#83bd75',
+      '#2e76c3',
+    ];
+
+    return colors[Math.floor(Math.random() * colors.length)];
   }
 
 }
