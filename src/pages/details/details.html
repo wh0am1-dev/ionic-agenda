@@ -34,13 +34,64 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-card-title>
-        Nine Inch Nails Live
-        </ion-card-title>
-      <p>
-        The most popular industrial group ever, and largely
-        responsible for bringing the music to a mass audience.
-      </p>
+      <ion-grid id="action-buttons" margin-bottom>
+        <ion-row>
+          <ion-col></ion-col>
+
+          <ion-col>
+            <button ion-button clear large color="blu" (click)="mail(contact)">
+              <ion-grid>
+                <ion-row>
+                  <ion-col text-center>
+                    <ion-icon name="mail"></ion-icon>
+                  </ion-col>
+                </ion-row>
+                <ion-row text-center>
+                  <ion-col>Mail</ion-col>
+                </ion-row>
+              </ion-grid>
+            </button>
+          </ion-col>
+
+          <ion-col>
+            <button ion-button clear large color="grn" (click)="call(contact)">
+              <ion-grid>
+                <ion-row>
+                  <ion-col text-center>
+                    <ion-icon name="call"></ion-icon>
+                  </ion-col>
+                </ion-row>
+                <ion-row text-center>
+                  <ion-col text-center>
+                    Call
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </button>
+          </ion-col>
+
+          <ion-col></ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-list no-lines>
+        <ion-item>
+          <ion-label stacked color="blu">Name</ion-label>
+          <ion-input readonly [value]="contact.name"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="contact.surname">
+          <ion-label stacked color="blu">Surname</ion-label>
+          <ion-input readonly [value]="contact.surname"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked color="blu">Phone</ion-label>
+          <ion-input readonly [value]="contact.phone"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="contact.email">
+          <ion-label stacked color="blu">e-mail</ion-label>
+          <ion-input readonly [value]="contact.email"></ion-input>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
 
   </ion-card>

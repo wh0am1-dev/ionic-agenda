@@ -3,6 +3,11 @@ page-details {
     border-radius: 50%;
   }
 
+  #action-buttons {
+    border-top: 1px solid rgba(192, 192, 192, 0.5);
+    border-bottom: 1px solid rgba(192, 192, 192, 0.5);
+  }
+
   .ar11 {
     @include aspect-ratio(1, 1);
   }

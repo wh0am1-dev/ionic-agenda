@@ -22,4 +22,12 @@ export class DetailsPage {
     this.viewCtrl.dismiss();
   }
 
+  call(contact: Contact) {
+    window.open(`tel:${contact.phone}`, '_system', 'location=yes');
+  }
+
+  mail(contact: Contact) {
+    window.open(`mailto:${contact.email}`, '_system', 'location=yes');
+  }
+
 }
