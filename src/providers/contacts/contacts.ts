@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Events } from 'ionic-angular';
+import { ToastController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 @Injectable()
@@ -10,6 +10,7 @@ export class ContactsProvider {
   constructor(
     public storage: Storage,
     public events: Events,
+    public toastCtrl: ToastController,
   ) {}
 
   getContacts(): Promise<object> {
@@ -20,6 +21,13 @@ export class ContactsProvider {
     this.getContacts().then(contacts => {
       contacts[contact.ini].push(contact);
       this.saveContacts(contacts);
+
+      this.toastCtrl.create({
+        message: 'Contact added ! :)',
+        showCloseButton: true,
+        closeButtonText: 'X',
+        duration: 3000,
+      }).present();
     });
   }
 
@@ -29,6 +37,13 @@ export class ContactsProvider {
       contacts[oldContact.ini].splice(idx, 1);
       contacts[newContact.ini].push(newContact);
       this.saveContacts(contacts);
+
+      this.toastCtrl.create({
+        message: 'Contact edited ! :)',
+        showCloseButton: true,
+        closeButtonText: 'X',
+        duration: 3000,
+      }).present();
     });
   }
 
@@ -37,6 +52,13 @@ export class ContactsProvider {
       let idx = this.findContact(contacts, contact);
       contacts[contact.ini].splice(idx, 1);
       this.saveContacts(contacts);
+
+      this.toastCtrl.create({
+        message: 'Contact removed ! :(',
+        showCloseButton: true,
+        closeButtonText: 'X',
+        duration: 3000,
+      }).present();
     });
   }
 
@@ -55,7 +77,7 @@ export class ContactsProvider {
     return null;
   }
 
-  private saveContacts(contacts, callback?) {
+  private saveContacts(contacts) {
     for (let k in contacts)
       contacts[k].sort(this.sortContacts);
 
