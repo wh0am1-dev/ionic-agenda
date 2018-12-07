@@ -1,5 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController, Refresher, Searchbar, Events } from 'ionic-angular';
+import {
+  NavController,
+  AlertController,
+  Refresher,
+  Searchbar,
+  Events,
+  ToastController,
+} from 'ionic-angular';
 
 import { Contact, ContactsProvider } from '../../providers/contacts/contacts';
 
@@ -18,6 +25,7 @@ export class HomePage {
     public navCtrl: NavController,
     public contactsProv: ContactsProvider,
     public alertCtrl: AlertController,
+    public toastCtrl: ToastController,
     public events: Events,
   ) {
     this.events.subscribe('contacts:saved', () => {
@@ -30,11 +38,11 @@ export class HomePage {
   }
 
   call(contact: Contact) {
-    // TODO
+    window.open(`tel:${contact.phone}`, '_system', 'location=yes');
   }
 
   mail(contact: Contact) {
-    // TODO
+    window.open(`mailto:${contact.email}`, '_system', 'location=yes');
   }
 
   initials(): string[] {
@@ -93,10 +101,26 @@ export class HomePage {
       }, {
         text: 'Done',
         handler: data => {
-          if (contact)
-            this.contactsProv.editContact(contact, new Contact(data.name, data.surname, data.phone, data.email), this.refresh);
-          else
-            this.contactsProv.addContact(new Contact(data.name, data.surname, data.phone, data.email), this.refresh);
+          console.log(data);
+          if (contact) {
+            if (data.name.trim() === '' || data.phone.trim() === '')
+              this.toastCtrl.create({
+                message: 'a vasila al parkeh !',
+                showCloseButton: true,
+                closeButtonText: 'X',
+                duration: 3000,
+              }).present();
+            else this.contactsProv.editContact(contact, new Contact(data.name, data.surname, data.phone, data.email));
+          } else {
+            if (data.name.trim() === '' || data.phone.trim() === '')
+              this.toastCtrl.create({
+                message: 'a vasila al parkeh !',
+                showCloseButton: true,
+                closeButtonText: 'X',
+                duration: 3000,
+              }).present();
+            else this.contactsProv.addContact(new Contact(data.name, data.surname, data.phone, data.email));
+          }
         },
       }],
     });
@@ -105,7 +129,7 @@ export class HomePage {
   }
 
   delete(contact: Contact) {
-    this.contactsProv.removeContact(contact, this.refresh);
+    this.contactsProv.removeContact(contact);
   }
 
   filter(ev?: any) {
