@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
-
 import { ContactsProvider } from '../providers/contacts/contacts';
+import { I18nProvider } from '../providers/i18n/i18n';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,21 +16,17 @@ export class MyApp {
 
   constructor(
     platform: Platform,
-    storage: Storage,
+    contactsProv: ContactsProvider,
+    i18n: I18nProvider,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
   ) {
+    i18n.init();
+    contactsProv.init();
+
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
-    });
-
-    storage.get(ContactsProvider.DB_CONTACTS).then(contacts => {
-      if (!contacts) storage.set(ContactsProvider.DB_CONTACTS, {
-        a: [], b: [], c: [], d: [], e: [], f: [], g: [], h: [], i: [],
-        j: [], k: [], l: [], m: [], n: [], o: [], p: [], q: [], r: [],
-        s: [], t: [], u: [], v: [], w: [], x: [], y: [], z: [], _: [],
-      })
     });
   }
 
