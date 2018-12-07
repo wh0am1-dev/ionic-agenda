@@ -1,3 +1,30 @@
 {
+  "contacts": "contacts"
+  , "contactDetails": "contact details"
+  , "searchContacts": "search contacts"
 
+  , "edit": "edit"
+  , "delete": "delete"
+
+  , "mail": "mail"
+  , "call": "call"
+
+  , "language": "language"
+  , "english": "english"
+  , "spanish": "spanish"
+
+  , "name": "name"
+  , "surname": "surname"
+  , "phone": "phone"
+  , "email": "email"
+
+  , "editContact": "edit contact"
+  , "newContact": "new contact"
+  , "cancel": "cancel"
+  , "done": "done"
+  , "contactEditError": "Error: name and phone required"
+
+  , "contactAdded": "Contact added ! :)"
+  , "contactEdited": "Contact edited ! :)"
+  , "contactRemoved": "Contact removed ! :("
 }
