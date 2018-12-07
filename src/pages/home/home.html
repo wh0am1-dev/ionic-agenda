@@ -24,7 +24,7 @@
 
       <ion-item-sliding *ngFor="let contact of contacts[ini]">
 
-        <ion-item>
+        <ion-item (click)="details(contact)">
           <ion-icon item-start name="person"></ion-icon>
           <h2>{{contact.name}} {{contact.surname}}</h2>
         </ion-item>

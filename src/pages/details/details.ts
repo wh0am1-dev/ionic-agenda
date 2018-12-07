@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
+
+import { Contact } from '../../providers/contacts/contacts';
 
 @Component({
   selector: 'page-details',
@@ -7,13 +9,17 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class DetailsPage {
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams
-  ) {}
+  contact: Contact;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DetailsPage');
+  constructor(
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+  ) {
+    this.contact = this.navParams.get('contact');
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 
 }

@@ -6,8 +6,10 @@ import {
   Searchbar,
   Events,
   ToastController,
+  ModalController,
 } from 'ionic-angular';
 
+import { DetailsPage } from '../details/details';
 import { Contact, ContactsProvider } from '../../providers/contacts/contacts';
 
 @Component({
@@ -26,6 +28,7 @@ export class HomePage {
     public contactsProv: ContactsProvider,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
+    public modalCtrl: ModalController,
     public events: Events,
   ) {
     this.events.subscribe('contacts:saved', () => {
@@ -35,6 +38,13 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.refresh();
+  }
+
+  details(contact: Contact) {
+    let modal = this.modalCtrl.create(DetailsPage, {
+      contact: contact
+    });
+    modal.present();
   }
 
   call(contact: Contact) {
