@@ -6,7 +6,7 @@
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Contact Details</ion-title>
+    <ion-title>{{ 'contactDetails' | translate | titlecase }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -36,9 +36,8 @@
     <ion-card-content>
       <ion-grid id="action-buttons" margin-bottom>
         <ion-row>
-          <ion-col></ion-col>
-
-          <ion-col>
+          <!-- TODO: setup proper columns... -->
+          <ion-col col-6 col-sm-3 offset-sm-3>
             <button ion-button clear large color="blu" (click)="mail(contact)">
               <ion-grid>
                 <ion-row>
@@ -47,13 +46,13 @@
                   </ion-col>
                 </ion-row>
                 <ion-row text-center>
-                  <ion-col>Mail</ion-col>
+                  <ion-col>{{ 'mail' | translate | titlecase }}</ion-col>
                 </ion-row>
               </ion-grid>
             </button>
           </ion-col>
 
-          <ion-col>
+          <ion-col col-6 col-sm-3>
             <button ion-button clear large color="grn" (click)="call(contact)">
               <ion-grid>
                 <ion-row>
@@ -63,32 +62,30 @@
                 </ion-row>
                 <ion-row text-center>
                   <ion-col text-center>
-                    Call
+                    {{ 'call' | translate | titlecase }}
                   </ion-col>
                 </ion-row>
               </ion-grid>
             </button>
           </ion-col>
-
-          <ion-col></ion-col>
         </ion-row>
       </ion-grid>
 
       <ion-list no-lines>
         <ion-item>
-          <ion-label stacked color="blu">Name</ion-label>
+          <ion-label stacked color="blu">{{ 'name' | translate | titlecase }}</ion-label>
           <ion-input readonly [value]="contact.name"></ion-input>
         </ion-item>
         <ion-item *ngIf="contact.surname">
-          <ion-label stacked color="blu">Surname</ion-label>
+          <ion-label stacked color="blu">{{ 'surname' | translate | titlecase }}</ion-label>
           <ion-input readonly [value]="contact.surname"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label stacked color="blu">Phone</ion-label>
+          <ion-label stacked color="blu">{{ 'phone' | translate | titlecase }}</ion-label>
           <ion-input readonly [value]="contact.phone"></ion-input>
         </ion-item>
         <ion-item *ngIf="contact.email">
-          <ion-label stacked color="blu">e-mail</ion-label>
+          <ion-label stacked color="blu">{{ 'email' | translate | titlecase }}</ion-label>
           <ion-input readonly [value]="contact.email"></ion-input>
         </ion-item>
       </ion-list>

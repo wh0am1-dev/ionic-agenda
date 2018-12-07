@@ -1,17 +1,41 @@
 import { Injectable } from '@angular/core';
 import { ToastController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class ContactsProvider {
 
   public static readonly DB_CONTACTS = 'contacts';
 
+  trans = {
+    contactAdded: '',
+    contactEdited: '',
+    contactRemoved: '',
+  };
+
   constructor(
     public storage: Storage,
     public events: Events,
     public toastCtrl: ToastController,
-  ) {}
+    public translate: TranslateService,
+  ) {
+    this.loadTrans();
+
+    events.subscribe('i18n:change', lang => {
+      this.loadTrans();
+    });
+  }
+
+  init() {
+    this.getContacts().then(contacts => {
+      if (!contacts) this.storage.set(ContactsProvider.DB_CONTACTS, {
+        a: [], b: [], c: [], d: [], e: [], f: [], g: [], h: [], i: [],
+        j: [], k: [], l: [], m: [], n: [], o: [], p: [], q: [], r: [],
+        s: [], t: [], u: [], v: [], w: [], x: [], y: [], z: [], _: [],
+      })
+    });
+  }
 
   getContacts(): Promise<object> {
     return this.storage.get(ContactsProvider.DB_CONTACTS);
@@ -23,7 +47,7 @@ export class ContactsProvider {
       this.saveContacts(contacts);
 
       this.toastCtrl.create({
-        message: 'Contact added ! :)',
+        message: this.trans.contactAdded,
         showCloseButton: true,
         closeButtonText: 'X',
         duration: 3000,
@@ -39,7 +63,7 @@ export class ContactsProvider {
       this.saveContacts(contacts);
 
       this.toastCtrl.create({
-        message: 'Contact edited ! :)',
+        message: this.trans.contactEdited,
         showCloseButton: true,
         closeButtonText: 'X',
         duration: 3000,
@@ -54,7 +78,7 @@ export class ContactsProvider {
       this.saveContacts(contacts);
 
       this.toastCtrl.create({
-        message: 'Contact removed ! :(',
+        message: this.trans.contactRemoved,
         showCloseButton: true,
         closeButtonText: 'X',
         duration: 3000,
@@ -82,7 +106,7 @@ export class ContactsProvider {
       contacts[k].sort(this.sortContacts);
 
     this.storage.set(ContactsProvider.DB_CONTACTS, contacts).then(() => {
-      this.events.publish('contacts:saved');
+      this.events.publish('contacts:save');
     });
   }
 
@@ -101,6 +125,21 @@ export class ContactsProvider {
     if (aName < bName) return -1;
     return 1;
   }
+
+  loadTrans() {
+    this.translate.get('contactAdded').subscribe(str => {
+      this.trans.contactAdded = str;
+    });
+
+    this.translate.get('contactEdited').subscribe(str => {
+      this.trans.contactEdited = str;
+    });
+
+    this.translate.get('contactRemoved').subscribe(str => {
+      this.trans.contactRemoved = str;
+    });
+  }
+
 }
 
 export class Contact {

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="bw3">
-    <ion-title>Contacts</ion-title>
+    <ion-title>{{ 'contacts' | translate | titlecase }}</ion-title>
 
     <ion-buttons end>
       <button ion-button icon-only (click)="editor()">
@@ -16,10 +16,10 @@
 <ion-content>
 
   <ion-refresher (ionRefresh)="refresh($event)">
-    <ion-refresher-content pullingText="Pull to refresh" refreshingText="Refreshing..."></ion-refresher-content>
+    <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-searchbar (ionInput)="filter($event)" placeholder="Search contacts"></ion-searchbar>
+  <ion-searchbar (ionInput)="filter($event)" [placeholder]="trans.searchContacts"></ion-searchbar>
 
   <ion-list>
     <ion-item-group *ngFor="let ini of initials()">
@@ -35,21 +35,21 @@
         <ion-item-options side="left">
           <button ion-button color="ylw" (click)="editor(contact)">
             <ion-icon name="create"></ion-icon>
-            Edit
+            {{ 'edit' | translate | titlecase }}
           </button>
           <button ion-button color="red" (click)="delete(contact)">
             <ion-icon name="trash"></ion-icon>
-            Delete
+            {{ 'delete' | translate | titlecase }}
           </button>
         </ion-item-options>
         <ion-item-options side="right">
           <button ion-button color="blu" (click)="mail(contact)">
             <ion-icon name="mail"></ion-icon>
-            Email
+            {{ 'mail' | translate | titlecase }}
           </button>
           <button ion-button color="grn" (click)="call(contact)">
             <ion-icon name="call"></ion-icon>
-            Call
+            {{ 'call' | translate | titlecase }}
           </button>
         </ion-item-options>
 

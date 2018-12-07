@@ -1,4 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { TitleCasePipe } from '@angular/common';
 import {
   NavController,
   AlertController,
@@ -22,6 +24,19 @@ export class HomePage {
 
   @ViewChild(Searchbar) searchbar: Searchbar;
 
+  trans = {
+    searchContacts: '',
+    editContact: '',
+    newContact: '',
+    name: '',
+    surname: '',
+    phone: '',
+    email: '',
+    cancel: '',
+    done: '',
+    contactEditError: '',
+  };
+
   allContacts: object = {};
   contacts: object = {};
 
@@ -33,8 +48,16 @@ export class HomePage {
     public modalCtrl: ModalController,
     public popCtrl: PopoverController,
     public events: Events,
+    public translate: TranslateService,
+    private titleCasePipe: TitleCasePipe,
   ) {
-    this.events.subscribe('contacts:saved', () => {
+    this.loadTrans();
+
+    this.events.subscribe('i18n:change', lang => {
+      this.loadTrans();
+    });
+
+    this.events.subscribe('contacts:save', () => {
       this.refresh();
     });
   }
@@ -89,56 +112,47 @@ export class HomePage {
 
   editor(contact?: Contact) {
     let alert = this.alertCtrl.create({
-      title: contact ? 'Edit Contact' : 'New Contact',
+      title: contact ? this.trans.editContact : this.trans.newContact,
       enableBackdropDismiss: false,
       inputs: [{
         type: 'text',
         name: 'name',
-        placeholder: 'Name',
+        placeholder: this.trans.name,
         value: contact ? contact.name : '',
       }, {
         type: 'text',
         name: 'surname',
-        placeholder: 'Surname',
+        placeholder: this.trans.surname,
         value: contact ? contact.surname : '',
       }, {
         type: 'text',
         name: 'phone',
-        placeholder: 'Phone',
+        placeholder: this.trans.phone,
         value: contact ? contact.phone : '',
       }, {
         type: 'text',
         name: 'email',
-        placeholder: 'Email',
+        placeholder: this.trans.email,
         value: contact ? contact.email : '',
       }],
       buttons: [{
-        text: 'Cancel',
+        text: this.trans.cancel,
         role: 'cancel',
         handler: data => true,
       }, {
-        text: 'Done',
+        text: this.trans.done,
         handler: data => {
-          console.log(data);
-          if (contact) {
-            if (data.name.trim() === '' || data.phone.trim() === '')
-              this.toastCtrl.create({
-                message: 'a vasila al parkeh !',
-                showCloseButton: true,
-                closeButtonText: 'X',
-                duration: 3000,
-              }).present();
-            else this.contactsProv.editContact(contact, new Contact(data.name, data.surname, data.phone, data.email));
-          } else {
-            if (data.name.trim() === '' || data.phone.trim() === '')
-              this.toastCtrl.create({
-                message: 'a vasila al parkeh !',
-                showCloseButton: true,
-                closeButtonText: 'X',
-                duration: 3000,
-              }).present();
-            else this.contactsProv.addContact(new Contact(data.name, data.surname, data.phone, data.email));
-          }
+          if (data.name.trim() === '' || data.phone.trim() === '')
+            this.toastCtrl.create({
+              message: this.trans.contactEditError,
+              showCloseButton: true,
+              closeButtonText: 'X',
+              duration: 3000,
+            }).present();
+          else if (contact)
+            this.contactsProv.editContact(contact, new Contact(data.name, data.surname, data.phone, data.email));
+          else
+            this.contactsProv.addContact(new Contact(data.name, data.surname, data.phone, data.email));
         },
       }],
     });
@@ -177,6 +191,48 @@ export class HomePage {
     }
 
     this.contacts = contacts;
+  }
+
+  loadTrans() {
+    this.translate.get('searchContacts').subscribe(str => {
+      this.trans.searchContacts = this.titleCasePipe.transform(str);
+    });
+
+    this.translate.get('editContact').subscribe(str => {
+      this.trans.editContact = this.titleCasePipe.transform(str);
+    });
+
+    this.translate.get('newContact').subscribe(str => {
+      this.trans.newContact = this.titleCasePipe.transform(str);
+    });
+
+    this.translate.get('name').subscribe(str => {
+      this.trans.name = this.titleCasePipe.transform(str);
+    });
+
+    this.translate.get('surname').subscribe(str => {
+      this.trans.surname = this.titleCasePipe.transform(str);
+    });
+
+    this.translate.get('phone').subscribe(str => {
+      this.trans.phone = this.titleCasePipe.transform(str);
+    });
+
+    this.translate.get('email').subscribe(str => {
+      this.trans.email = this.titleCasePipe.transform(str);
+    });
+
+    this.translate.get('cancel').subscribe(str => {
+      this.trans.cancel = this.titleCasePipe.transform(str);
+    });
+
+    this.translate.get('done').subscribe(str => {
+      this.trans.done = this.titleCasePipe.transform(str);
+    });
+
+    this.translate.get('contactEditError').subscribe(str => {
+      this.trans.contactEditError = str;
+    });
   }
 
 }
