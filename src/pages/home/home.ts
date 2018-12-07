@@ -2,13 +2,15 @@ import { Component, ViewChild } from '@angular/core';
 import {
   NavController,
   AlertController,
+  ToastController,
+  ModalController,
+  PopoverController,
   Refresher,
   Searchbar,
   Events,
-  ToastController,
-  ModalController,
 } from 'ionic-angular';
 
+import { Menu } from './menu';
 import { DetailsPage } from '../details/details';
 import { Contact, ContactsProvider } from '../../providers/contacts/contacts';
 
@@ -29,6 +31,7 @@ export class HomePage {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
+    public popCtrl: PopoverController,
     public events: Events,
   ) {
     this.events.subscribe('contacts:saved', () => {
@@ -38,6 +41,11 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.refresh();
+  }
+
+  popover(ev: any) {
+    let pop = this.popCtrl.create(Menu);
+    pop.present({ ev: ev });
   }
 
   details(contact: Contact) {
