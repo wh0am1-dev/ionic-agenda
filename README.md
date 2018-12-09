@@ -1,4 +1,10 @@
-# :notebook: ionic-agenda
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Neko250/ionic-agenda/master/src/assets/imgs/logo.png" width="25%">
+</div>
+
+<h1 align="center">ionic-agenda</h1>
+
+<div align="center">
 
 [![__status__](https://img.shields.io/website-up-down-green-red/https/neko250.github.io/ionic-agenda.svg?label=status)](https://neko250.github.io/ionic-agenda/)
 [![__maintenance__](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/neko250/ionic-agenda)
@@ -7,6 +13,12 @@
 [![__dependencies__](https://img.shields.io/david/neko250/ionic-agenda.svg)](https://github.com/neko250/ionic-agenda/blob/master/package.json)
 
 contact management [pwa](https://developers.google.com/web/progressive-web-apps/) made with :black_heart: and ionic
+
+<sup>:es: __agenda__ stands for __phonebook__ in spanish :es:</sup>
+
+</div>
+
+<br>
 
 ## :hammer: dev setup
 
@@ -24,17 +36,18 @@ cd ionic-agenda/
 npm i
 ```
 
-### :computer: run dev server
+## :computer: run dev server
 
 ```bash
 ionic s -c
 ```
 
 you can preview the app using __ionic devapp__, get it on:
+
 - [google play store](https://play.google.com/store/apps/details?id=io.ionic.devapp&hl=en)
 - [apple app store](https://itunes.apple.com/us/app/ionic-devapp/id1233447133?ls=1&mt=8)
 
-## :1234: versioning
+## :bookmark: versioning
 
 > use __[semver](https://semver.org)__ :warning:
 
@@ -51,3 +64,5 @@ git push origin <major>.<minor>.<patch>
 ionic build --prod
 npm run deploy
 ```
+
+## :newspaper: [changelog](https://github.com/Neko250/ionic-agenda/blob/master/CHANGELOG.md)
