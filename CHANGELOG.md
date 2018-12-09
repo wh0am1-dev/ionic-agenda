@@ -1,7 +1,7 @@
-# :bookmark: changelog
+# :newspaper: changelog
 
 <!-- template
-## `version`
+## :bookmark: `version`
 
 - `add`: whatever
 - `change`: whatever
@@ -9,7 +9,7 @@
 - `remove`: whatever
 -->
 
-## `1.0.0`
+## :bookmark: `1.0.0`
 
 - `add`: contact list view
 - `add`: filter contact list
