@@ -1,5 +1,14 @@
 # :bookmark: changelog
 
+<!-- template
+## `version`
+
+- `add`: whatever
+- `change`: whatever
+- `fix`: whatever
+- `remove`: whatever
+-->
+
 ## `1.0.0`
 
 - `add`: contact list view

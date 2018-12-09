@@ -36,6 +36,8 @@ cd ionic-agenda/
 npm i
 ```
 
+<br>
+
 ## :computer: run dev server
 
 ```bash
@@ -47,16 +49,26 @@ you can preview the app using __ionic devapp__, get it on:
 - [google play store](https://play.google.com/store/apps/details?id=io.ionic.devapp&hl=en)
 - [apple app store](https://itunes.apple.com/us/app/ionic-devapp/id1233447133?ls=1&mt=8)
 
+<br>
+
 ## :bookmark: versioning
 
 > :warning: use __[semver](https://semver.org)__
 
-update `package.json` version and `CHANGELOG.md`, then run:
+update the these files:
+
+- `package.json`
+- `CHANGELOG.md`
+- `src/pages/about/about.html`
+
+then run:
 
 ```bash
 git tag <major>.<minor>.<patch>
 git push origin <major>.<minor>.<patch>
 ```
+
+<br>
 
 ## :rocket: build and deploy
 
@@ -64,5 +76,7 @@ git push origin <major>.<minor>.<patch>
 ionic build --prod
 npm run deploy
 ```
+
+<br>
 
 ## :newspaper: [changelog](https://github.com/Neko250/ionic-agenda/blob/master/CHANGELOG.md)
