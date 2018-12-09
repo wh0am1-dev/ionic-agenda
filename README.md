@@ -1,4 +1,4 @@
-# ionic-agenda
+# :notebook: ionic-agenda
 
 [![__status__](https://img.shields.io/website-up-down-green-red/https/neko250.github.io/ionic-agenda.svg?label=status)](https://neko250.github.io/ionic-agenda/)
 [![__maintenance__](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/neko250/ionic-agenda)
@@ -6,23 +6,48 @@
 [![__size__](https://img.shields.io/github/languages/code-size/neko250/ionic-agenda.svg)](https://github.com/neko250/ionic-agenda)
 [![__dependencies__](https://img.shields.io/david/neko250/ionic-agenda.svg)](https://github.com/neko250/ionic-agenda/blob/master/package.json)
 
-Contact management application made with :heart: and ionic
+contact management [pwa](https://developers.google.com/web/progressive-web-apps/) made with :black_heart: and ionic
 
-## Development setup
+## :hammer: dev setup
 
-- Install [node](https://nodejs.org)
+install [node](https://nodejs.org), then run:
 
-```shell
+```bash
+# install ionic globally
 npm i -g ionic
+
+# clone the repo
 git clone https://github.com/neko250/ionic-agenda
 cd ionic-agenda/
+
+# install dependencies
 npm i
+```
+
+### :computer: run dev server
+
+```bash
 ionic s -c
 ```
 
-## Build and deploy
+you can preview the app using __ionic devapp__, get it on:
+- [google play store](https://play.google.com/store/apps/details?id=io.ionic.devapp&hl=en)
+- [apple app store](https://itunes.apple.com/us/app/ionic-devapp/id1233447133?ls=1&mt=8)
 
-```shell
+## :1234: versioning
+
+> use __[semver](https://semver.org)__ :warning:
+
+update `package.json` version and `CHANGELOG.md`, then run:
+
+```bash
+git tag <major>.<minor>.<patch>
+git push origin <major>.<minor>.<patch>
+```
+
+## :rocket: build and deploy
+
+```bash
 ionic build --prod
 npm run deploy
 ```
