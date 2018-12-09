@@ -79,11 +79,11 @@ export class HomePage {
   }
 
   call(contact: Contact) {
-    window.open(`tel:${contact.phone}`, '_system', 'location=yes');
+    window.open(`tel:${contact.phone}`, '');
   }
 
   mail(contact: Contact) {
-    window.open(`mailto:${contact.email}`, '_system', 'location=yes');
+    window.open(`mailto:${contact.email}`, '');
   }
 
   initials(): string[] {
