@@ -130,7 +130,7 @@ export class HomePage {
         placeholder: this.trans.phone,
         value: contact ? contact.phone : '',
       }, {
-        type: 'text',
+        type: 'email',
         name: 'email',
         placeholder: this.trans.email,
         value: contact ? contact.email : '',
