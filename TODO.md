@@ -1,4 +1,4 @@
-# todo
+# :heavy_check_mark: to-do
 
 - [ ] add contributors
 - [ ] fix call and mail links

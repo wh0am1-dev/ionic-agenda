@@ -49,7 +49,7 @@ you can preview the app using __ionic devapp__, get it on:
 
 ## :bookmark: versioning
 
-> use __[semver](https://semver.org)__ :warning:
+> :warning: use __[semver](https://semver.org)__
 
 update `package.json` version and `CHANGELOG.md`, then run:
 
