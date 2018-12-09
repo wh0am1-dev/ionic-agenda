@@ -9,7 +9,8 @@
     "start": "ionic-app-scripts serve",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
-    "lint": "ionic-app-scripts lint"
+    "lint": "ionic-app-scripts lint",
+    "deploy": "gh-pages -d www"
   },
   "dependencies": {
     "@angular/animations": "5.2.11",
@@ -34,6 +35,7 @@
   "devDependencies": {
     "@ionic/app-scripts": "3.2.1",
     "@ionic/lab": "1.0.15",
+    "gh-pages": "^2.0.1",
     "typescript": "~2.6.2"
   }
 }
