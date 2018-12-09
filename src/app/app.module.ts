@@ -6,8 +6,6 @@ import { IonicStorageModule } from '@ionic/storage';
 import { TitleCasePipe } from '@angular/common';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -50,8 +48,6 @@ import { I18nProvider } from '../providers/i18n/i18n';
     DetailsPage,
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     TitleCasePipe,
     ContactsProvider,

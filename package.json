@@ -2,6 +2,7 @@
   "name": "agenda",
   "version": "0.0.1",
   "author": "Carlos Aguilar",
+  "description": "Contact management application made with :heart: and ionic",
   "homepage": "https://neko250.github.io",
   "private": true,
   "scripts": {
@@ -20,9 +21,6 @@
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
-    "@ionic-native/core": "~4.17.0",
-    "@ionic-native/splash-screen": "~4.17.0",
-    "@ionic-native/status-bar": "~4.17.0",
     "@ionic/storage": "^2.2.0",
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
@@ -37,11 +35,5 @@
     "@ionic/app-scripts": "3.2.1",
     "@ionic/lab": "1.0.15",
     "typescript": "~2.6.2"
-  },
-  "description": "An Ionic project",
-  "cordova": {
-    "plugins": {
-      "cordova-sqlite-storage": {}
-    }
   }
 }
