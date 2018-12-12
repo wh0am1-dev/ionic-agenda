@@ -23,11 +23,15 @@ export class DetailsPage {
   }
 
   call(contact: Contact) {
-    window.open(`tel:${contact.phone}`, '_system', 'location=yes');
+    // FIXME: use the line below, ref: https://bugs.chromium.org/p/chromium/issues/detail?id=792990
+    // window.open(`mailto:${contact.phone}`, '');
+    window.location.href = `tel:${contact.phone}`;
   }
 
   mail(contact: Contact) {
-    window.open(`mailto:${contact.email}`, '_system', 'location=yes');
+    // FIXME: use the line below, ref: https://bugs.chromium.org/p/chromium/issues/detail?id=792990
+    // window.open(`mailto:${contact.email}`, '');
+    window.location.href = `mailto:${contact.email}`;
   }
 
 }
