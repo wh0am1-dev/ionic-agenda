@@ -21,40 +21,48 @@
 
   <ion-searchbar (ionInput)="filter($event)" [placeholder]="trans.searchContacts"></ion-searchbar>
 
-  <ion-list>
-    <ion-item-group *ngFor="let ini of initials()">
-      <ion-item-divider color="light" *ngIf="contacts[ini].length">{{ini | uppercase}}</ion-item-divider>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col col-12 col-lg-6 offset-lg-3>
 
-      <ion-item-sliding *ngFor="let contact of contacts[ini]">
+        <ion-list>
+          <ion-item-group *ngFor="let ini of initials()">
+            <ion-item-divider color="light" *ngIf="contacts[ini].length">{{ini | uppercase}}</ion-item-divider>
 
-        <ion-item (click)="details(contact)">
-          <ion-icon item-start name="person"></ion-icon>
-          <h2>{{contact.name}} {{contact.surname}}</h2>
-        </ion-item>
+            <ion-item-sliding *ngFor="let contact of contacts[ini]">
 
-        <ion-item-options side="left">
-          <button ion-button color="ylw" (click)="editor(contact)">
-            <ion-icon name="create"></ion-icon>
-            {{ 'edit' | translate | titlecase }}
-          </button>
-          <button ion-button color="red" (click)="delete(contact)">
-            <ion-icon name="trash"></ion-icon>
-            {{ 'delete' | translate | titlecase }}
-          </button>
-        </ion-item-options>
-        <ion-item-options side="right">
-          <button ion-button color="blu" (click)="mail(contact)">
-            <ion-icon name="mail"></ion-icon>
-            {{ 'mail' | translate | titlecase }}
-          </button>
-          <button ion-button color="grn" (click)="call(contact)">
-            <ion-icon name="call"></ion-icon>
-            {{ 'call' | translate | titlecase }}
-          </button>
-        </ion-item-options>
+              <ion-item (click)="details(contact)">
+                <ion-icon item-start name="person"></ion-icon>
+                <h2>{{contact.name}} {{contact.surname}}</h2>
+              </ion-item>
 
-      </ion-item-sliding>
-    </ion-item-group>
-  </ion-list>
+              <ion-item-options side="left">
+                <button ion-button color="ylw" (click)="editor(contact)">
+                  <ion-icon name="create"></ion-icon>
+                  {{ 'edit' | translate | titlecase }}
+                </button>
+                <button ion-button color="red" (click)="delete(contact)">
+                  <ion-icon name="trash"></ion-icon>
+                  {{ 'delete' | translate | titlecase }}
+                </button>
+              </ion-item-options>
+              <ion-item-options side="right">
+                <button ion-button color="blu" (click)="mail(contact)">
+                  <ion-icon name="mail"></ion-icon>
+                  {{ 'mail' | translate | titlecase }}
+                </button>
+                <button ion-button color="grn" (click)="call(contact)">
+                  <ion-icon name="call"></ion-icon>
+                  {{ 'call' | translate | titlecase }}
+                </button>
+              </ion-item-options>
+
+            </ion-item-sliding>
+          </ion-item-group>
+        </ion-list>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
