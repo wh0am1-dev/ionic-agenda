@@ -9,6 +9,13 @@
 - `remove`: whatever
 -->
 
+## :bookmark: `2.0.1`
+
+- `change`: tweak contact initial letter size
+- `change`: show narrow contact list on wide viewports
+- `fix`: contact action buttons are now horizontally centered
+- `fix`: temporary fix for PWAs not properly handling custom protocols, reference: [https://bugs.chromium.org/p/chromium/issues/detail?id=792990](https://bugs.chromium.org/p/chromium/issues/detail?id=792990)
+
 ## :bookmark: `2.0.0`
 
 - `add`: ionic agenda logo, ref: japanese kanji *hito*
