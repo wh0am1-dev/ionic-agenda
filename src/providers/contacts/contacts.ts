@@ -29,21 +29,17 @@ export class ContactsProvider {
 
   init() {
     this.getContacts().then(contacts => {
-      if (!contacts) this.storage.set(ContactsProvider.DB_CONTACTS, {
-        a: [], b: [], c: [], d: [], e: [], f: [], g: [], h: [], i: [],
-        j: [], k: [], l: [], m: [], n: [], o: [], p: [], q: [], r: [],
-        s: [], t: [], u: [], v: [], w: [], x: [], y: [], z: [], _: [],
-      })
+      if (!contacts) this.storage.set(ContactsProvider.DB_CONTACTS, []);
     });
   }
 
-  getContacts(): Promise<object> {
+  getContacts(): Promise<Contact[]> {
     return this.storage.get(ContactsProvider.DB_CONTACTS);
   }
 
   addContact(contact: Contact) {
     this.getContacts().then(contacts => {
-      contacts[contact.ini].push(contact);
+      contacts.push(contact);
       this.saveContacts(contacts);
 
       this.toastCtrl.create({
@@ -58,8 +54,7 @@ export class ContactsProvider {
   editContact(oldContact: Contact, newContact: Contact) {
     this.getContacts().then(contacts => {
       let idx = this.findContact(contacts, oldContact);
-      contacts[oldContact.ini].splice(idx, 1);
-      contacts[newContact.ini].push(newContact);
+      contacts[idx] = newContact;
       this.saveContacts(contacts);
 
       this.toastCtrl.create({
@@ -74,7 +69,7 @@ export class ContactsProvider {
   removeContact(contact: Contact) {
     this.getContacts().then(contacts => {
       let idx = this.findContact(contacts, contact);
-      contacts[contact.ini].splice(idx, 1);
+      contacts.splice(idx, 1);
       this.saveContacts(contacts);
 
       this.toastCtrl.create({
@@ -86,12 +81,9 @@ export class ContactsProvider {
     });
   }
 
-  private findContact(contacts: object, contact: Contact): number {
-    if (!contacts[contact.ini])
-      return null;
-
-    for (var i = 0; i < contacts[contact.ini].length; i++) {
-      let c = contacts[contact.ini][i];
+  private findContact(contacts: Contact[], contact: Contact): number {
+    for (var i = 0; i < contacts.length; i++) {
+      let c = contacts[i];
 
       if (contact.name.toLowerCase() === c.name.toLowerCase() &&
         contact.surname.toLowerCase() === c.surname.toLowerCase())
@@ -102,9 +94,7 @@ export class ContactsProvider {
   }
 
   private saveContacts(contacts) {
-    for (let k in contacts)
-      contacts[k].sort(this.sortContacts);
-
+    contacts.sort(this.sortContacts);
     this.storage.set(ContactsProvider.DB_CONTACTS, contacts).then(() => {
       this.events.publish('contacts:save');
     });

@@ -37,8 +37,8 @@ export class HomePage {
     contactEditError: '',
   };
 
-  allContacts: object = {};
-  contacts: object = {};
+  allContacts: Contact[] = [];
+  contacts: Contact[] = [];
 
   constructor(
     public navCtrl: NavController,
@@ -71,6 +71,12 @@ export class HomePage {
     pop.present({ ev: ev });
   }
 
+  initial(contacts, idx) {
+    if (idx === 0 || contacts[idx - 1].ini !== contacts[idx].ini)
+      return contacts[idx].ini;
+    return null;
+  }
+
   details(contact: Contact) {
     let modal = this.modalCtrl.create(DetailsPage, {
       contact: contact
@@ -90,22 +96,11 @@ export class HomePage {
     window.location.href = `mailto:${contact.email}`;
   }
 
-  initials(): string[] {
-    let ini = [];
-    for (let k in this.contacts)
-      ini.push(k);
-
-    return ini;
-  }
-
   refresh(refresher?: Refresher) {
     this.searchbar.setValue('');
     this.contactsProv.getContacts().then(contacts => {
       this.allContacts = contacts;
-
-      this.contacts = {};
-      for (let k in this.allContacts)
-        this.contacts[k] = this.allContacts[k].slice();
+      this.contacts = contacts.slice();
 
       if (refresher)
         setTimeout(() => {
@@ -170,28 +165,23 @@ export class HomePage {
 
   filter(ev?: any) {
     let query = ev ? ev.target.value : null;
-
-    let contacts = {};
-    for (let k in this.allContacts)
-      contacts[k] = this.allContacts[k].slice();
+    let contacts = this.allContacts.slice();
 
     if (query && query.trim() !== '') {
       let keywords = query.split(/(?:,| )+/);
 
-      for (let ini in contacts) {
-        contacts[ini] = contacts[ini].filter(contact => {
-          let stays = false;
+      contacts = contacts.filter(contact => {
+        let stays = false;
 
-          keywords.forEach(k => {
-            stays = stays || contact.name.toLowerCase().indexOf(k.toLowerCase()) > -1;
-            stays = stays || contact.surname.toLowerCase().indexOf(k.toLowerCase()) > -1;
-            stays = stays || contact.phone.toLowerCase().indexOf(k.toLowerCase()) > -1;
-            stays = stays || contact.email.toLowerCase().indexOf(k.toLowerCase()) > -1;
-          });
-
-          return stays;
+        keywords.forEach(k => {
+          stays = stays || contact.name.toLowerCase().indexOf(k.toLowerCase()) > -1;
+          stays = stays || contact.surname.toLowerCase().indexOf(k.toLowerCase()) > -1;
+          stays = stays || contact.phone.toLowerCase().indexOf(k.toLowerCase()) > -1;
+          stays = stays || contact.email.toLowerCase().indexOf(k.toLowerCase()) > -1;
         });
-      }
+
+        return stays;
+      });
     }
 
     this.contacts = contacts;
