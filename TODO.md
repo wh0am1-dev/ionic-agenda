@@ -1,9 +1,8 @@
 # :heavy_check_mark: to-do
 
-- [ ] implement virtual scroll
 - [ ] avoid phone duplicates (toast)
 - [ ] avoid name+surname duplicates (toast)
-- [ ] write presentation
+- [x] `contacts` data structure should be an array
 - [x] fix call and mail links
 - [x] center contact action buttons on small screens
 - [x] add contributors

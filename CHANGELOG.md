@@ -9,6 +9,10 @@
 - `remove`: whatever
 -->
 
+## :bookmark: `2.1.0`
+
+- `change`: improved contact storage performance
+
 ## :bookmark: `2.0.1`
 
 - `change`: tweak contact initial letter size
@@ -23,7 +27,6 @@
 - `change`: now deploying to gh-pages
 - `change`: about view showing version of readme
 - `fix`: contact email input type
-- `fix`: contact action buttons now working
 
 ## :bookmark: `1.0.0`
 
