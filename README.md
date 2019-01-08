@@ -7,8 +7,8 @@
 <div align="center">
 
 [![__status__](https://img.shields.io/website-up-down-green-red/https/neko250.github.io/ionic-agenda.svg?label=status)](https://neko250.github.io/ionic-agenda/)
-[![__maintenance__](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/neko250/ionic-agenda)
-[![__version__](https://img.shields.io/github/package-json/v/neko250/ionic-agenda.svg)](https://github.com/neko250/ionic-agenda)
+[![__maintenance__](https://img.shields.io/maintenance/yes/2019.svg)](https://github.com/neko250/ionic-agenda)
+[![__version__](https://img.shields.io/github/tag/neko250/ionic-agenda.svg)](https://github.com/neko250/ionic-agenda)
 [![__size__](https://img.shields.io/github/languages/code-size/neko250/ionic-agenda.svg)](https://github.com/neko250/ionic-agenda)
 [![__dependencies__](https://img.shields.io/david/neko250/ionic-agenda.svg)](https://github.com/neko250/ionic-agenda/blob/master/package.json)
 
