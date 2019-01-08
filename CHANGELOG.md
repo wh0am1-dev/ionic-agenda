@@ -9,6 +9,11 @@
 - `remove`: whatever
 -->
 
+## :bookmark: `2.1.1`
+
+- `change`: update maintenance shield
+- `fix`: fix broken version shield
+
 ## :bookmark: `2.1.0`
 
 - `change`: improved contact storage performance
