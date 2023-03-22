@@ -6,11 +6,10 @@
 
 <div align="center">
 
-[![__status__](https://img.shields.io/website-up-down-green-red/https/neko250.github.io/ionic-agenda.svg?label=status)](https://neko250.github.io/ionic-agenda/)
-[![__maintenance__](https://img.shields.io/maintenance/yes/2019.svg)](https://github.com/neko250/ionic-agenda)
-[![__version__](https://img.shields.io/github/tag/neko250/ionic-agenda.svg)](https://github.com/neko250/ionic-agenda)
-[![__size__](https://img.shields.io/github/languages/code-size/neko250/ionic-agenda.svg)](https://github.com/neko250/ionic-agenda)
-[![__dependencies__](https://img.shields.io/david/neko250/ionic-agenda.svg)](https://github.com/neko250/ionic-agenda/blob/master/package.json)
+[![status](https://img.shields.io/website-up-down-green-red/https/carlos-aguilar.com/ionic-agenda.svg?label=status)](https://carlos-aguilar.com/ionic-agenda/)
+[![maintenance](https://img.shields.io/maintenance/yes/2019.svg)](https://github.com/wh0am1-dev/ionic-agenda)
+[![version](https://img.shields.io/github/tag/wh0am1-dev/ionic-agenda.svg)](https://github.com/wh0am1-dev/ionic-agenda)
+[![size](https://img.shields.io/github/languages/code-size/wh0am1-dev/ionic-agenda.svg)](https://github.com/wh0am1-dev/ionic-agenda)
 
 contact management [pwa](https://developers.google.com/web/progressive-web-apps/) made with :black_heart: and ionic
 
